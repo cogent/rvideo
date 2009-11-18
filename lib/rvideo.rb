@@ -6,6 +6,12 @@ require 'rvideo/string'
 
 # gems
 require 'rubygems'
+# TODO require latest ActiveSupport which supports
+# selective inclusion of behaviors instead of 
+# the kitchen sink or nothing at all.
+# 
+# Also, there are probably places we can just ditch 
+# dependency altogether..
 require 'active_support'
 
 # rvideo
@@ -41,4 +47,6 @@ module RVideo
     @logger = Logger.new("/dev/null") unless @logger
     @logger
   end
+  
+  
 end
