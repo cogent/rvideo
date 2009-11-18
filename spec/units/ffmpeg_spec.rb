@@ -261,8 +261,8 @@ module RVideo
       end
     end
     
-    context Ffmpeg, "result parsing should raise an exception" do
-      setup do
+    describe Ffmpeg, "result parsing should raise an exception" do
+      before do
         setup_ffmpeg_spec
         @results = load_fixture :ffmpeg_results
       end
