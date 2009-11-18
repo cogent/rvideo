@@ -298,8 +298,6 @@ module RVideo # :nodoc:
       case audio_match[5]
       when "mono"   then 1
       when "stereo" then 2
-      else
-        raise RuntimeError, "Unknown number of channels: #{audio_channels}"
       end
     end
     
