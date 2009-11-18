@@ -8,10 +8,13 @@ module RVideo # :nodoc:
       def self.assign(cmd, options = {})
         tool_name = cmd.split(" ").first
         begin
-          tool = "RVideo::Tools::#{tool_name.underscore.classify}".constantize.send(:new, cmd, options)
-        # rescue NameError, /uninitialized constant/
-          # raise TranscoderError::UnknownTool, "The recipe tried to use the '#{tool_name}' tool, which does not exist."
-        rescue => e
+          tool_class_name = tool_name.underscore.classify
+          tool = RVideo::Tools.const_get(tool_class_name).new(cmd, options)
+        rescue NameError => e
+          raise TranscoderError::UnknownTool,
+            "The recipe tried to use #{tool_name.inspect}, " +
+            "which expands to #{tool_class_name.inspect}, which does not exist. \n#{e.message}"
+        rescue Object => e
           RVideo.logger.info e.message
           RVideo.logger.info e.backtrace.join("\n")
           raise e
