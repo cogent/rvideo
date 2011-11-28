@@ -140,7 +140,7 @@ module RVideo
         
         if line_count > 500
           # Find the message indicating that the command is actually running.
-          running_string = "Press .* to stop encoding"
+          running_string = "Press .* to stop"
           @raw_result << `grep "#{running_string}" #{temp_file_name}`
         end
 
@@ -212,7 +212,7 @@ module RVideo
           raise TranscoderError, "Could not write output file to #{@output_file}"
         end
           
-        full_details = /Press .* to stop encoding\n(.*)/m.match(result)
+        full_details = /Press \[q\] to stop, \[\?\] for help\n(.*)/m.match(result)  
         raise TranscoderError, "Unexpected result details (#{result})" if full_details.nil?
         details = full_details[1].strip.gsub(/\s*\n\s*/," - ")
         
